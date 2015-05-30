@@ -1,0 +1,11 @@
+Fri May 29 21:04:26 PDT 2015
+---------------------------
+System name: ubuntu
+User information:
+full name: Jealani Shaik,,,,
+log name: student
+uid: 1000
+gid: 1000
+HOME dir: /home/student
+Default shell: /bin/bash
+-------------------------------
