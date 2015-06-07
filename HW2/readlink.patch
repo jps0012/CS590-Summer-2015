@@ -1,0 +1,37 @@
+40c40
+< 
+---
+> static bool super_verbose;
+49a50
+>   {"super-verbose", no_argument, NULL, 'j'},
+83a85
+>   -j, --super-verbose		new functionality for Assignment-2 CS590\n\
+97d98
+< 
+114c115
+<   while ((optc = getopt_long (argc, argv, "efmnqsv", longopts, NULL)) != -1)
+---
+>   while ((optc = getopt_long (argc, argv, "efmnqsvj", longopts, NULL)) != -1)
+133a135,137
+>         case 'j':
+> 	  super_verbose = true;
+> 	  break;
+163,166c167,179
+<       printf ("%s%s", value, (no_newline ? "" : "\n"));
+<       free (value);
+<       return EXIT_SUCCESS;
+<     }
+---
+>       if(super_verbose==true)
+> 	{
+> 	  printf("Output modified for CS590 Assignment #2- Jealani Shaik\n");
+> 	  printf("input link file name: %s\n", fname);
+> 	  printf("Original file name pointed by link file is: %s\n", value);
+> 	}
+> 	else
+> 	{
+>           printf ("%s%s", value, (no_newline ? "" : "\n"));
+>           free (value);
+>       	  return EXIT_SUCCESS;
+>  	}
+>    }

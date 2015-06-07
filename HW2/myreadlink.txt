@@ -1,0 +1,3 @@
+Output modified for CS590 Assignment #2- Jealani Shaik
+input link file name: ../coreutils-8.17/src/jps0012.c
+Original file name pointed by link file is: readlink_org.c
