@@ -1,37 +1,78 @@
-40c40
-< 
----
-> static bool super_verbose;
-49a50
->   {"super-verbose", no_argument, NULL, 'j'},
-83a85
->   -j, --super-verbose		new functionality for Assignment-2 CS590\n\
-97d98
-< 
-114c115
-<   while ((optc = getopt_long (argc, argv, "efmnqsv", longopts, NULL)) != -1)
----
->   while ((optc = getopt_long (argc, argv, "efmnqsvj", longopts, NULL)) != -1)
-133a135,137
->         case 'j':
-> 	  super_verbose = true;
-> 	  break;
-163,166c167,179
-<       printf ("%s%s", value, (no_newline ? "" : "\n"));
-<       free (value);
-<       return EXIT_SUCCESS;
-<     }
----
->       if(super_verbose==true)
-> 	{
-> 	  printf("Output modified for CS590 Assignment #2- Jealani Shaik\n");
-> 	  printf("input link file name: %s\n", fname);
-> 	  printf("Original file name pointed by link file is: %s\n", value);
-> 	}
-> 	else
-> 	{
->           printf ("%s%s", value, (no_newline ? "" : "\n"));
->           free (value);
->       	  return EXIT_SUCCESS;
->  	}
->    }
+--- readlink.c	2015-06-13 09:03:19.718651864 -0700
++++ readlink0.c	2015-06-07 08:34:38.667455616 -0700
+@@ -37,7 +37,7 @@
+ 
+ /* If true, report error messages.  */
+ static bool verbose;
+-
++static bool super_verbose;
+ static struct option const longopts[] =
+ {
+   {"canonicalize", no_argument, NULL, 'f'},
+@@ -47,6 +47,7 @@
+   {"quiet", no_argument, NULL, 'q'},
+   {"silent", no_argument, NULL, 's'},
+   {"verbose", no_argument, NULL, 'v'},
++  {"super-verbose", no_argument, NULL, 'j'},
+   {GETOPT_HELP_OPTION_DECL},
+   {GETOPT_VERSION_OPTION_DECL},
+   {NULL, 0, NULL, 0}
+@@ -81,6 +82,7 @@
+   -q, --quiet,\n\
+   -s, --silent                  suppress most error messages\n\
+   -v, --verbose                 report error messages\n\
++  -j, --super-verbose		new functionality for Assignment-2 CS590\n\
+ "), stdout);
+       fputs (HELP_OPTION_DESCRIPTION, stdout);
+       fputs (VERSION_OPTION_DESCRIPTION, stdout);
+@@ -94,7 +96,6 @@
+ {
+   /* If not -1, use this method to canonicalize.  */
+   int can_mode = -1;
+-
+   /* File name to canonicalize.  */
+   const char *fname;
+ 
+@@ -111,7 +112,7 @@
+ 
+   atexit (close_stdout);
+ 
+-  while ((optc = getopt_long (argc, argv, "efmnqsv", longopts, NULL)) != -1)
++  while ((optc = getopt_long (argc, argv, "efmnqsvj", longopts, NULL)) != -1)
+     {
+       switch (optc)
+         {
+@@ -131,6 +132,9 @@
+         case 's':
+           verbose = false;
+           break;
++        case 'j':
++	  super_verbose = true;
++	  break;
+         case 'v':
+           verbose = true;
+           break;
+@@ -160,10 +164,19 @@
+            : areadlink_with_size (fname, 63));
+   if (value)
+     {
+-      printf ("%s%s", value, (no_newline ? "" : "\n"));
+-      free (value);
+-      return EXIT_SUCCESS;
+-    }
++      if(super_verbose==true)
++	{
++	  printf("Output modified for CS590 Assignment #2- Jealani Shaik\n");
++	  printf("input link file name: %s\n", fname);
++	  printf("Original file name pointed by link file is: %s\n", value);
++	}
++	else
++	{
++          printf ("%s%s", value, (no_newline ? "" : "\n"));
++          free (value);
++      	  return EXIT_SUCCESS;
++ 	}
++   }
+ 
+   if (verbose)
+     error (EXIT_FAILURE, errno, "%s", fname);
